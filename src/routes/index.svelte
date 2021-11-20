@@ -16,11 +16,15 @@
 	import BlogPost from '$components/blog-post/BlogPost.svelte';
 	import ProjectCard from '$components/project-card/ProjectCard.svelte';
 
+	import SearchBar from '$components/search-bar/SearchBar.svelte'
+	import Ticker from '$components/ticker/Ticker.svelte';
+
 	// Models
 	import type { IMetaTagProperties } from '$models/interfaces/imeta-tag-properties.interface';
 	import type { IProjectCard } from '$models/interfaces/iproject-card.interface';
 	import type { IBlogPostSummary } from '$models/interfaces/iblog-post-summary.interface';
 	import ExternalLink from '$lib/shared/ui/components/external-link/ExternalLink.svelte';
+
 	// End: Local Imports
 
 	// Exports
@@ -66,9 +70,14 @@
 			icon: '',
 		},
 	];
+
+	let symb: String = '';
 	// End: Local component properties
 
 	// Start: Local component methods
+	function updateSymb(data) {
+		symb = data.detail.data;
+	}
 
 	// End: Local component methods
 </script>
@@ -79,6 +88,10 @@
 
 <!-- Start: Home Page container -->
 <div class="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
+	<SearchBar on:submitted={updateSymb}/>
+	<h2>SYMB: {symb}</h2>
+	<Ticker symb={symb}/>
+
 	<h1 class="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
 		Hey, I’m Sveltekit Starter
 	</h1>
